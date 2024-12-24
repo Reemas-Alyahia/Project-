@@ -30,11 +30,11 @@ public class EmployeeDTOin {
     private String email;
 
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+  
     @NotEmpty(message = "Employee Position cannot be empty")
     private String position;
 
-    @Column(columnDefinition = "DECIMAL NOT NULL")
+
     @Positive(message = "Employee Salary must be a Positive number")
     private Double salary;
 }
