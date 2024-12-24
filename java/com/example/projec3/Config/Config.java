@@ -34,18 +34,21 @@ public class Config {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws  Exception{
-     http.csrf().disable()
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
+                .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("api/v1/customer/registerCu").permitAll()
-                .requestMatchers("api/v1/employee/registerEmployee").permitAll()
-                .requestMatchers("api/v1/customer/**","api/v1/account/**").hasAnyAuthority("ADMIN", "EMPLOYEE", "CUSTOMER")
-                .requestMatchers("api/v1/account/active",
-                        "api/v1/account/blockAccount/","api/v1/employee/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/v1/customer/register").permitAll()
+                .requestMatchers("/api/v1/employee/register").permitAll()
+                .requestMatchers("/api/v1/customer/**", "/api/v1/account/**").
+                hasAnyAuthority("ADMIN", "EMPLOYEE", "CUSTOMER")
+                .requestMatchers("/api/v1/account/active",
+                        "/api/v1/account/blockAccount/", "/api/v1/employee/**").
+                hasAnyAuthority("ADMIN", "EMPLOYEE")
                 .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl("/api/v1/logout")

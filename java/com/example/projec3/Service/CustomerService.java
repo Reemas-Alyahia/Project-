@@ -61,15 +61,15 @@ public class CustomerService {
         myUser1.setUsername(customerDTOin.getUsername());
         myUser1.setPassword(new BCryptPasswordEncoder().encode(customerDTOin.getPassword()));
         myUser1.setName(customerDTOin.getName());
+        myUser1.setEmail(customerDTOin.getEmail());
         myUser1.setRole("CUSTOMER");
-
-     Customer customer=new Customer();
-     customer.setId(null);
-     customer.setUser(myUser1);
-     customer.setPhoneNumber(customer.getPhoneNumber());
-
-
         authRepsitory.save(myUser1);
+
+        Customer customer=new Customer();
+        customer.setPhoneNumber(customerDTOin.getPhoneNumber());
+        customer.setUser(myUser1);
+
+
         customerRepostiory.save(customer);
      }
 

@@ -30,10 +30,8 @@ public class EmployeeDTOin {
     private String email;
 
 
-  
     @NotEmpty(message = "Employee Position cannot be empty")
     private String position;
-
 
     @Positive(message = "Employee Salary must be a Positive number")
     private Double salary;

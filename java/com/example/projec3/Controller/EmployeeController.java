@@ -13,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/employee")
+@RequestMapping("/api/v1/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeService employeeService;
@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
 
-    @PostMapping("/registerEmployee")
+    @PostMapping("/register")
     public ResponseEntity registerEmployee(@RequestBody @Valid EmployeeDTOin employeeDTOin){
         employeeService.registerEmployee(employeeDTOin);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Hello to our web"));

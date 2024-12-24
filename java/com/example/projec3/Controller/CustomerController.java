@@ -13,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/customer")
+@RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
 
@@ -24,7 +24,7 @@ public class CustomerController {
         return ResponseEntity.status(200).body(customerService.getAllCustomer(myUser.getId()));
     }
 
-    @PostMapping("/registerCu")
+    @PostMapping("/register")
     public ResponseEntity registerCustomer(@RequestBody @Valid CustomerDTOin customerDTOin){
         customerService.registerCustomer(customerDTOin);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Hello to our web"));}

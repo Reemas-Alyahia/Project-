@@ -44,10 +44,9 @@ public class MyUser implements UserDetails {
     @Size(min = 2, max = 20, message = "User Name must be between 2 and 20 characters")
     private String name;
 
-
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL UNIQUE")
-    @NotEmpty(message = "User Email cannot be empty")
-    @Email(message = "User Email must be a valid email format")
+    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+   @NotEmpty(message = "User Email cannot be empty")
+   @Email(message = "User Email must be a valid email format")
     private String email;
 
     @Column(columnDefinition = "VARCHAR(50) NOT NULL")
