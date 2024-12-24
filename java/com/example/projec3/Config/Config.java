@@ -35,23 +35,25 @@ public class Config {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws  Exception{
-        http.csrf().disable()
+     http.csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("api/v1/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("api/v1/customer/registerCu","api/v1/employee/registerEmployee").permitAll()
+                .requestMatchers("api/v1/customer/registerCu").permitAll()
+                .requestMatchers("api/v1/employee/registerEmployee").permitAll()
                 .requestMatchers("api/v1/customer/**","api/v1/account/**").hasAnyAuthority("ADMIN", "EMPLOYEE", "CUSTOMER")
-                .requestMatchers("api/v1/account/active","api/v1/account/blockAccount/","api/v1/employee/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
-                .anyRequest().permitAll()
+                .requestMatchers("api/v1/account/active",
+                        "api/v1/account/blockAccount/","api/v1/employee/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                .anyRequest().authenticated()
                 .and()
-                .logout().disable()
-                .httpBasic().disable();
-
+                .logout().logoutUrl("/api/v1/logout")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .and()
+                .httpBasic();
         return http.build();
-
-
     }
 
 }
